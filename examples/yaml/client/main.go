@@ -3,16 +3,16 @@ package main
 import (
 	"fmt"
 	"github.com/kitex-contrib/optionloader/configloader/yaml"
-	"github.com/kitex-contrib/optionloader/optionloader/server"
+	"github.com/kitex-contrib/optionloader/optionloader/client"
 )
 
 func main() {
-	filePath := "./examples/yaml/server/config.yaml"
-	cfg, err := yaml.LoadServerConfig(filePath)
+	filePath := "./examples/yaml/client/config.yaml"
+	cfg, err := yaml.LoadClientConfig(filePath)
 	if err != nil {
 		panic(err)
 	}
-	loader := server.NewServerOptionLoader()
+	loader := client.NewClientOptionLoader()
 	options, err := loader.Load(cfg)
 	if err != nil {
 		panic(err)

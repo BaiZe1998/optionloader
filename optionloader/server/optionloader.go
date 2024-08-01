@@ -13,15 +13,32 @@ type OptionLoader interface {
 	// RegisterTranslator registers a translator function.
 	RegisterTranslator(translator Translator)
 	// Load loads the server options from config and custom registered option translators.
-	Load() ([]server.Option, error)
+	Load(config *config.ServerConfig) ([]server.Option, error)
 }
 
 type DefaultOptionLoader struct {
-	config      *config.ServerConfig
 	translators []Translator
 }
 
-func NewServerOptionLoader(config *config.ServerConfig) OptionLoader {
+func NewServerOptionLoader() OptionLoader {
+	return &DefaultOptionLoader{
+		translators: make([]Translator, 0),
+	}
+}
+
+// RegisterTranslator registers a translator function.
+// If the translator function has been registered, both will be registered,
+// and the translator functions will be called in the order of registration.
+func (loader *DefaultOptionLoader) RegisterTranslator(translator Translator) {
+	loader.translators = append(loader.translators, translator)
+}
+
+// Load loads the server options from config and custom registered option translators.
+// The custom registered option translators will have higher priority than the option translators from the config.
+func (loader *DefaultOptionLoader) Load(config *config.ServerConfig) ([]server.Option, error) {
+	if config == nil {
+		return nil, fmt.Errorf("server config not set")
+	}
 	var translatorsList []Translator
 	// common options
 	if config.MuxTransport {
@@ -90,26 +107,11 @@ func NewServerOptionLoader(config *config.ServerConfig) OptionLoader {
 		translatorsList = append(translatorsList, translator.CompatibleMiddlewareForUnaryTranslator)
 	}
 
-	return &DefaultOptionLoader{
-		config:      config,
-		translators: translatorsList,
-	}
-}
+	loader.translators = append(translatorsList, loader.translators...)
 
-// RegisterTranslator registers a translator function.
-// If the translator function has been registered, both will be registered,
-// and the translator functions will be called in the order of registration.
-func (loader *DefaultOptionLoader) RegisterTranslator(translator Translator) {
-	loader.translators = append(loader.translators, translator)
-}
-
-func (loader *DefaultOptionLoader) Load() ([]server.Option, error) {
-	if loader.config == nil {
-		return nil, fmt.Errorf("server config not set")
-	}
 	var options []server.Option
 	for _, trans := range loader.translators {
-		options = append(options, trans(loader.config))
+		options = append(options, trans(config))
 	}
 	return options, nil
 }
