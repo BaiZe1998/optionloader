@@ -8,7 +8,7 @@ long_connection:
   min_idle_per_address: 5
   max_idle_per_address: 10
   max_idle_global: 20
-  time_interval:
+  max_idle_timeout:
     unit: "s"
     value: 30
 

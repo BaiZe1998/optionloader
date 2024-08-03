@@ -28,7 +28,7 @@ type IdleConfig struct {
 	MinIdlePerAddress int          `yaml:"min_idle_per_address"`
 	MaxIdlePerAddress int          `yaml:"max_idle_per_address"`
 	MaxIdleGlobal     int          `yaml:"max_idle_global"`
-	TimeInterval      TimeInterval `yaml:"time_interval"`
+	MaxIdleTimeout    TimeInterval `yaml:"max_idle_timeout"`
 }
 
 type Tag struct {

@@ -28,7 +28,7 @@ func LongConnectionTranslator(config *config.ClientConfig) client.Option {
 		MinIdlePerAddress: config.LongConnection.MinIdlePerAddress,
 		MaxIdlePerAddress: config.LongConnection.MaxIdlePerAddress,
 		MaxIdleGlobal:     config.LongConnection.MaxIdleGlobal,
-		MaxIdleTimeout:    config.LongConnection.TimeInterval.Transform(),
+		MaxIdleTimeout:    config.LongConnection.MaxIdleTimeout.Transform(),
 	}
 	return client.WithLongConnection(cfg)
 }
