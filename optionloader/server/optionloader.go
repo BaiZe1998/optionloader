@@ -20,7 +20,7 @@ type DefaultOptionLoader struct {
 	translators []Translator
 }
 
-func NewServerOptionLoader() OptionLoader {
+func NewOptionLoader() OptionLoader {
 	return &DefaultOptionLoader{
 		translators: make([]Translator, 0),
 	}
@@ -40,7 +40,7 @@ func (loader *DefaultOptionLoader) Load(config *config.ServerConfig) ([]server.O
 		return nil, fmt.Errorf("server config not set")
 	}
 	var translatorsList []Translator
-	// common options
+	// basic options
 	if config.MuxTransport {
 		translatorsList = append(translatorsList, translator.MuxTransportTranslator)
 	}
@@ -96,9 +96,6 @@ func (loader *DefaultOptionLoader) Load(config *config.ServerConfig) ([]server.O
 	if config.ServerBasicInfo != nil {
 		translatorsList = append(translatorsList, translator.ServerBasicInfoTranslator)
 	}
-	if config.Proxy != nil {
-		translatorsList = append(translatorsList, translator.ProxyTranslator)
-	}
 	if config.ReusePort {
 		translatorsList = append(translatorsList, translator.ReusePortTranslator)
 	}
@@ -106,7 +103,7 @@ func (loader *DefaultOptionLoader) Load(config *config.ServerConfig) ([]server.O
 	if config.CompatibleMiddlewareForUnary {
 		translatorsList = append(translatorsList, translator.CompatibleMiddlewareForUnaryTranslator)
 	}
-
+	// Add the custom registered option translators behind the default translators.
 	loader.translators = append(translatorsList, loader.translators...)
 
 	var options []server.Option

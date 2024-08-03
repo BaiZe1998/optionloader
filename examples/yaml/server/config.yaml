@@ -50,8 +50,5 @@ server_basic_info:
   tags:
     version: 8.0.0
     endpoint: /skywalking
-proxy:
-  network: tcp
-  address: 127.0.0.1:8080
 reuse_port: true
 compatible_middleware_for_unary: true

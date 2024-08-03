@@ -1,7 +1,7 @@
 package config
 
 type ServerConfig struct {
-	// common
+	// basic
 	MuxTransport                    bool                                  `yaml:"mux_transport"`                       // For WithMuxTransport
 	ReadWriteTimeout                *TimeInterval                         `yaml:"read_write_timeout"`                  // For WithReadWriteTimeout
 	ExitWaitTime                    *TimeInterval                         `yaml:"exit_wait_time"`                      // For WithExitWaitTime
@@ -21,7 +21,6 @@ type ServerConfig struct {
 	EnableContextTimeout            bool                                  `yaml:"enable_context_timeout"`              // For WithEnableContextTimeout
 	// advanced
 	ServerBasicInfo *EndpointBasicInfo `yaml:"server_basic_info"` // For WithServerBasicInfo
-	Proxy           *NetAddr           `yaml:"proxy"`             // For WithProxy
 	ReusePort       bool               `yaml:"reuse_port"`        // For WithReusePort
 	// stream
 	CompatibleMiddlewareForUnary bool `yaml:"compatible_middleware_for_unary"` // For WithCompatibleMiddlewareForUnary

@@ -20,7 +20,7 @@ type DefaultOptionLoader struct {
 	translators []Translator
 }
 
-func NewClientOptionLoader() OptionLoader {
+func NewOptionLoader() OptionLoader {
 	return &DefaultOptionLoader{
 		translators: make([]Translator, 0),
 	}
@@ -38,7 +38,7 @@ func (loader *DefaultOptionLoader) Load(config *config.ClientConfig) ([]client.O
 		return nil, fmt.Errorf("client config not set")
 	}
 	var translatorsList []Translator
-	// common options
+	// basic options
 	if config.TransportProtocol != 0 {
 		translatorsList = append(translatorsList, translator.TransportProtocolTranslator)
 	}
@@ -97,7 +97,7 @@ func (loader *DefaultOptionLoader) Load(config *config.ClientConfig) ([]client.O
 	if config.ClientBasicInfo != nil {
 		translatorsList = append(translatorsList, translator.ClientBasicInfoTranslator)
 	}
-
+	// Add the custom registered option translators behind the default translators.
 	loader.translators = append(translatorsList, loader.translators...)
 
 	var options []client.Option

@@ -6,10 +6,9 @@ import (
 	"github.com/cloudwego/kitex/pkg/stats"
 	"github.com/cloudwego/kitex/server"
 	"github.com/kitex-contrib/optionloader/config"
-	"net"
 )
 
-// common
+// basic
 func MuxTransportTranslator(config *config.ServerConfig) server.Option {
 	return server.WithMuxTransport()
 }
@@ -110,26 +109,6 @@ func ServerBasicInfoTranslator(config *config.ServerConfig) server.Option {
 		Tags:        config.ServerBasicInfo.Tags,
 	}
 	return server.WithServerBasicInfo(endpointBasicInfo)
-}
-
-type reverseProxy struct {
-	network string
-	address string
-}
-
-func (s reverseProxy) Replace(addr net.Addr) (net.Addr, error) {
-	return netAddr{
-		network: s.network,
-		address: s.address,
-	}, nil
-}
-
-func ProxyTranslator(config *config.ServerConfig) server.Option {
-	proxy := reverseProxy{
-		network: config.Proxy.Network,
-		address: config.Proxy.Address,
-	}
-	return server.WithProxy(proxy)
 }
 
 func ReusePortTranslator(config *config.ServerConfig) server.Option {

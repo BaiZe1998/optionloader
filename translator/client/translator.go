@@ -10,7 +10,7 @@ import (
 	"github.com/kitex-contrib/optionloader/config"
 )
 
-// common
+// basic
 func TransportProtocolTranslator(config *config.ClientConfig) client.Option {
 	return client.WithTransportProtocol(transport.Protocol(config.TransportProtocol))
 }

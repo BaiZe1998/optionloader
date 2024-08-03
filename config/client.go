@@ -1,7 +1,7 @@
 package config
 
 type ClientConfig struct {
-	// common
+	// basic
 	TransportProtocol         int                        `yaml:"transport_protocol"`
 	DestService               string                     `yaml:"dest_service"`
 	HostPorts                 []string                   `yaml:"host_ports"`

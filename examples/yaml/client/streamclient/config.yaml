@@ -1,29 +1,13 @@
-transport_protocol: 1
 dest_service: "your-destination-service-name"
 host_ports:
   - "localhost:8080"
   - "localhost:8081"
-
-long_connection:
-  min_idle_per_address: 5
-  max_idle_per_address: 10
-  max_idle_global: 20
-  time_interval:
-    unit: "s"
-    value: 30
-
-mux_connection: 4
-rpc_timeout:
-  unit: "s"
-  value: 5
 connect_timeout:
   unit: "s"
   value: 3
-
 tag:
   key: "your-tag-key"
   value: "your-tag-value"
-
 stats_level: 1
 conn_reporter_enabled: true
 
@@ -42,7 +26,6 @@ grpc_keepalive_params:
     value: 5
   permit_without_stream: true
 
-http_connection: true
 client_basic_info:
   service_name: "your-service-name"
   method: "your-method"

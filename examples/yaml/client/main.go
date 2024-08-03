@@ -12,7 +12,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	loader := client.NewClientOptionLoader()
+	loader := client.NewOptionLoader()
 	options, err := loader.Load(cfg)
 	if err != nil {
 		panic(err)
