@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func LoadCallopConfig(filePath string) (*config.CalloptConfig, error) {
+func LoadCalloptConfig(filePath string) (*config.CalloptConfig, error) {
 
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
 		return nil, fmt.Errorf("file does not exist: %s", filePath)

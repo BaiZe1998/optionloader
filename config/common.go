@@ -34,3 +34,8 @@ func (t *TimeInterval) Transform() time.Duration {
 	}
 	return time.Duration(t.Value) * unit
 }
+
+type Tag struct {
+	Key   string `yaml:"key"`
+	Value string `yaml:"value"`
+}

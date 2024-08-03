@@ -8,7 +8,7 @@ import (
 
 func main() {
 	filePath := "./examples/yaml/client/callopt/config.yaml"
-	cfg, err := yaml.LoadCallopConfig(filePath)
+	cfg, err := yaml.LoadCalloptConfig(filePath)
 	if err != nil {
 		panic(err)
 	}

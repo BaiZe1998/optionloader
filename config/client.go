@@ -31,11 +31,6 @@ type IdleConfig struct {
 	MaxIdleTimeout    TimeInterval `yaml:"max_idle_timeout"`
 }
 
-type Tag struct {
-	Key   string `yaml:"key"`
-	Value string `yaml:"value"`
-}
-
 type GRPCClientKeepaliveParams struct {
 	Time                TimeInterval `yaml:"time"`
 	Timeout             TimeInterval `yaml:"timeout"`
